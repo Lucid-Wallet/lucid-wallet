@@ -1,6 +1,12 @@
 "use strict";
 
-import express, { Request, Response, Application, NextFunction } from 'express';
+import express, { Request, Response, Application, NextFunction, RequestHandler } from 'express';
+import { authController } from './controllers/authController';
+
+export interface authController {
+  signIn: RequestHandler,
+  signOut: RequestHandler
+}
 
 const app:Application = express();
 
@@ -9,6 +15,20 @@ const PORT:number = 8080;
 app.get('/', (req: Request, res: Response):Response => {
 
   return res.send("Server");
+});
+
+/**
+ * Sign in route
+ */
+app.post('/signIn', authController.signIn, (req: Request, res:Response):Response => {
+  return res.sendStatus(200);
+});
+
+/**
+ * Sign up route
+ */
+app.post('/signUp', authController.signUp, (req: Request, res: Response):Response => {
+  return res.sendStatus(200);
 });
 
 /**
