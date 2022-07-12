@@ -4,11 +4,9 @@ import { Request, Response, NextFunction } from 'express';
 import { QueryResult } from 'pg';
 import { AuthController } from '../types';
 import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
-
 import { db } from '../models';
 
-dotenv.config();
+
 
 export const authController:AuthController = {
   /**
@@ -19,8 +17,8 @@ export const authController:AuthController = {
   signIn: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
 
     try {  
+      console.log('Process env ', );
       if (req.body.email && req.body.password) {
-
         // Get user information from database
         const values:Array<String> = [req.body.email.toLowerCase(), req.body.password];
         const query:String = 'SELECT email, display_name FROM accounts WHERE lower(email) = $1 and password = $2';
@@ -35,11 +33,8 @@ export const authController:AuthController = {
         res.locals.user = { display_name: display_name, email: email};
 
         // On successful login assign valid session to user
-        jwt.sign(user, process.env.JWT_TOKEN_SECRET);
-
-
-        
-
+        const jwtToken:string = jwt.sign(user, process.env.JWT_TOKEN_SECRET as string);
+        res.cookie('jwt', jwtToken);
         return next();
       } else {
         return next({
@@ -52,21 +47,22 @@ export const authController:AuthController = {
     catch(err){
       console.log(err);
       return next({
-        log: 'Error saving to database',
+        log: 'Error accessing database',
         status: 400,
         message: {err}
       });
     }
   },
 
-  signOut:  (req: Request, res: Response, next: NextFunction): void => {
+  signOut: (req: Request, res: Response, next: NextFunction): void => {
     try {
       return next();
     }
     catch(err){
       console.log(err);
+      res.clearCookie('jwt');
       return next({
-        log: 'Error saving to database',
+        log: 'Error signing out',
         status: 400,
         message: {err}
       });
@@ -75,9 +71,20 @@ export const authController:AuthController = {
 
   signUp: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const values = [req.body.email, req.body.display_name, req.body.password];
-      const query:String = 'INSERT INTO accounts (email, display_name, password) VALUES ($1, $2, $3)';
+
+      const currentTime:Date = new Date();
+      let timestamp = currentTime.getUTCFullYear() + '-' +
+      ('00' + (currentTime.getUTCMonth()+1)).slice(-2) + '-' +
+      ('00' + currentTime.getUTCDate()).slice(-2) + ' ' + 
+      ('00' + currentTime.getUTCHours()).slice(-2) + ':' + 
+      ('00' + currentTime.getUTCMinutes()).slice(-2) + ':' + 
+      ('00' + currentTime.getUTCSeconds()).slice(-2);
+
+      const values = [req.body.email, req.body.display_name, req.body.password, timestamp];
+      const query:String = 'INSERT INTO accounts (email, display_name, password, created_at) VALUES ($1, $2, $3, $4)';
       const results:Promise<QueryResult> = await db.query(query, values, null);
+
+
 
       return next();
     }

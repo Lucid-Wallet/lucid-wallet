@@ -5,8 +5,9 @@ import { addCategory } from "../reducers/budgetslice";
 
 const FormCategory = () => {
     // const categories = useSelector()
+    const dispatch = useDispatch();
     const categories = useSelector(state => state.categories)
-    
+
 
     return (
         <div id="categoryBox">

@@ -28,7 +28,7 @@ export const itemController:ItemController = {
     catch(err){
       console.log(err);
       return next({
-        log: 'Error saving to database',
+        log: 'Error retrieving from database',
         status: 400,
         message: {err}
       });
@@ -85,7 +85,7 @@ export const itemController:ItemController = {
     catch(err){
       console.log(err);
       return next({
-        log: 'Error saving to database',
+        log: 'Error deleting from database',
         status: 400,
         message: {err}
       });

@@ -1,18 +1,26 @@
 "use strict";
 
 import express, { Request, Response, Application, NextFunction, RequestHandler } from 'express';
+import cookieParser from 'cookie-parser';
+import dotenv from 'dotenv';
+import cors from 'cors'
+
+dotenv.config();
+
 import { authController } from './controllers/authController';
 import { categoryController } from './controllers/categoryController';
 import { itemController } from './controllers/itemController';
 import { budgetController } from './controllers/budgetController';
-import cors from 'cors'
-
 
 const app:Application = express();
+
 app.use(express.json());
+app.use(cookieParser());
+
 app.use(cors({
   origin: '*',
 }));
+
 const PORT:number = 8080;
 
 app.get('/', (req: Request, res: Response):Response => {
@@ -31,6 +39,13 @@ app.post('/signIn', authController.signIn, (req: Request, res:Response):Response
  * Sign up route
  */
 app.post('/signUp', authController.signUp, (req: Request, res: Response):Response => {
+  return res.sendStatus(200);
+});
+
+/**
+ * Sign out route
+ */
+app.get('/signOut', authController.signOut, (req: Request, res: Response):Response => {
   return res.sendStatus(200);
 });
 

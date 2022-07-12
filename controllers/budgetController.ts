@@ -37,7 +37,7 @@ export const budgetController = {
     catch(err){
       console.log(err);
       return next({
-        log: 'Error saving to database',
+        log: 'Error retrieving from database',
         status: 400,
         message: {err}
       });
@@ -52,7 +52,7 @@ export const budgetController = {
     catch(err){
       console.log(err);
       return next({
-        log: 'Error saving to database',
+        log: 'Error editing database',
         status: 400,
         message: {err}
       });
