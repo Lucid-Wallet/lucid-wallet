@@ -5,11 +5,14 @@ import { authController } from './controllers/authController';
 import { categoryController } from './controllers/categoryController';
 import { itemController } from './controllers/itemController';
 import { budgetController } from './controllers/budgetController';
+import cors from 'cors'
 
 
 const app:Application = express();
 app.use(express.json());
-
+app.use(cors({
+  origin: '*',
+}));
 const PORT:number = 8080;
 
 app.get('/', (req: Request, res: Response):Response => {

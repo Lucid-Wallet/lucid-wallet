@@ -78,7 +78,7 @@ export const authController:AuthController = {
       const values = [req.body.email, req.body.display_name, req.body.password];
       const query:String = 'INSERT INTO accounts (email, display_name, password) VALUES ($1, $2, $3)';
       const results:Promise<QueryResult> = await db.query(query, values, null);
-      
+
       return next();
     }
     catch(err){
