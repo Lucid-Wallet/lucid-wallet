@@ -22,7 +22,8 @@ const LoginDisplay = () => {
         })
         .then(res => res.json())
         .then(data => {
-            if(data.username){
+            console.log(data)
+            if(data.display_name){
                 setVerified(data)
                 navigate('/home');
             }else{

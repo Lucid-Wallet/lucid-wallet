@@ -30,7 +30,7 @@ app.post('/signIn', authController.signIn, (req: Request, res:Response):Response
 /**
  * Sign up route
  */
-app.get('/signUp', authController.signUp, (req: Request, res: Response):Response => {
+app.post('/signUp', authController.signUp, (req: Request, res: Response):Response => {
   return res.sendStatus(200);
 });
 

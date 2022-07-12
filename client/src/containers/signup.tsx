@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 const SignUp = () => {
     const [email, setEmail] = useState('');
+    const [displayname, setDisplayname]
     const [password, setPassword] = useState('');
     
     const navigate = useNavigate();
