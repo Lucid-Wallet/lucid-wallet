@@ -67,7 +67,7 @@ app.post('/budget', budgetController.editBudget, (req: Request, res: Response): 
  * Get all categories
  */
 app.get('/category', categoryController.getCategories, (req: Request, res: Response): Response => {
-  return res.sendStatus(200);
+  return res.json(res.locals.categories);
 });
 
 /**

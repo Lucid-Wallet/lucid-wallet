@@ -1,7 +1,7 @@
 "use strict";
 
 import { Request, Response, NextFunction } from "express";
-
+import jwt from 'jsonwebtoken';
 import { CategoryController } from '../types';
 import { QueryResult } from 'pg';
 import { db } from '../models';
@@ -10,17 +10,25 @@ export const categoryController:CategoryController = {
 
   /**
    * Retrieve list of categories associated with user
-   * @param req { uid: Number }
+   * @param req { }
    * @param res { JSON: array of categories belonging to the user }
    * @param next 
    */
   getCategories: async (req: Request, res: Response, next: NextFunction):Promise<void> => {
     try {
-      const values:String[] = [req.body.user_id];
+
+      let uid: Number | undefined ;
+      const jwtToken = req.cookies.jwt;
+      jwt.verify(jwtToken, process.env.JWT_TOKEN_SECRET as string, (err: any, data: any) => {
+        uid = data.user_id;
+      });
+      
+      const values:String[] = [ String(uid) ];
+      console.log(uid);
       const query:String = 'SELECT category_id, category FROM categories WHERE user_id = $1';
 
       const results:Promise<QueryResult> = await db.query(query, values, null);
-      
+    
       res.locals.categories = (await results).rows;
       return next();
     }

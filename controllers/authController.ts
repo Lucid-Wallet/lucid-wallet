@@ -2,10 +2,11 @@
 
 import { Request, Response, NextFunction } from 'express';
 import { QueryResult } from 'pg';
-import { AuthController } from '../types';
 import jwt from 'jsonwebtoken';
-import { db } from '../models';
 
+import { AuthController } from '../types';
+import { db } from '../models';
+const fs = require('fs');
 
 
 export const authController:AuthController = {
@@ -16,12 +17,12 @@ export const authController:AuthController = {
    */
   signIn: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
 
-    try {  
+    try {
       console.log('Process env ', );
       if (req.body.email && req.body.password) {
         // Get user information from database
         const values:Array<String> = [req.body.email.toLowerCase(), req.body.password];
-        const query:String = 'SELECT email, display_name FROM accounts WHERE lower(email) = $1 and password = $2';
+        const query:String = 'SELECT user_id, email, display_name FROM accounts WHERE lower(email) = $1 and password = $2';
         
         const results:Promise<QueryResult> = db.query(query, values, null);
 
@@ -34,7 +35,8 @@ export const authController:AuthController = {
 
         // On successful login assign valid session to user
         const jwtToken:string = jwt.sign(user, process.env.JWT_TOKEN_SECRET as string);
-        res.cookie('jwt', jwtToken);
+        res.cookie('jwt', jwtToken, { path: '/', httpOnly: true });
+
         return next();
       } else {
         return next({
@@ -56,11 +58,14 @@ export const authController:AuthController = {
 
   signOut: (req: Request, res: Response, next: NextFunction): void => {
     try {
+      console.log("before ", req.cookies);
+      res.clearCookie('jwt', { path: '/'});
+      console.log("after ", req.cookies);
       return next();
     }
     catch(err){
       console.log(err);
-      res.clearCookie('jwt');
+      
       return next({
         log: 'Error signing out',
         status: 400,
@@ -80,11 +85,22 @@ export const authController:AuthController = {
       ('00' + currentTime.getUTCMinutes()).slice(-2) + ':' + 
       ('00' + currentTime.getUTCSeconds()).slice(-2);
 
-      const values = [req.body.email, req.body.display_name, req.body.password, timestamp];
+      const values:String[] = [req.body.email, req.body.display_name, req.body.password, timestamp];
       const query:String = 'INSERT INTO accounts (email, display_name, password, created_at) VALUES ($1, $2, $3, $4)';
       const results:Promise<QueryResult> = await db.query(query, values, null);
 
+      const idValue:String[] = [req.body.display_name];
+      const idQuery:String = 'SELECT user_id FROM accounts WHERE $1'
 
+      // const newUserId = await (db.query(idQuery, idValue, null))
+      
+      // fs.writeFile(`./userBudgets/${newUserId}.json`, '', function (err:any) {
+      //   if (err) throw err;
+      //   console.log('File Created')
+      // });
+
+      // const saveFile:String[]
+      // //userId, budgetId, filename
 
       return next();
     }
