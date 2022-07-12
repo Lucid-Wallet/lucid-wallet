@@ -11,3 +11,25 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+#budgetBox {
+  display: flex;
+  justify-content: ho;
+  align-items: center;
+  border-style: solid;
+  margin: 20px;
+}
+#categoryBox {
+  display: flex;
+  justify-content:flex-start;
+  align-items: center;
+  border-style: solid;
+  margin: 20px;
+}
+
+/* #inputBox {
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+} */
