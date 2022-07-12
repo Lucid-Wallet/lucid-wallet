@@ -30,9 +30,9 @@ export const authController:AuthController = {
         return next();
       } else {
         return next({
-          log: 'Missing username or password field',
+          log: 'Missing email or password field',
           status: 400,
-          message: 'Missing username or password field'
+          message: 'Missing email or password field'
         })
       }
     }
