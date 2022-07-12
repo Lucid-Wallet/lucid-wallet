@@ -3,17 +3,17 @@ import { Link, useNavigate } from "react-router-dom";
 
 
 const LoginDisplay = () => {
-    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [verified, setVerified] = useState<boolean | undefined>();
     const navigate = useNavigate();
 
     const loginCheck = () => {
         const user = {
-            username: username,
+            email: email,
             password: password
         };
-        fetch('http://localhost:8080/login', {
+        fetch('http://localhost:8080/signIn', {
             method: 'POST',
             headers: {
                 'Content-Type': 'Application/JSON'
@@ -27,7 +27,7 @@ const LoginDisplay = () => {
                 navigate('/home');
             }else{
                 setVerified(false);
-                setUsername('');
+                setEmail('');
                 setPassword('WRONG PASSWORD BODY!!')
             }
         })
@@ -41,7 +41,7 @@ const LoginDisplay = () => {
             </div>
             <div id="inputBox">
                 <label>Username</label>
-                <input className="loginInput" type="text" placeholder="Enter Your Username" value={username} onChange={e => setUsername(e.target.value)} />
+                <input className="loginInput" type="text" placeholder="Enter Your Username" value={email} onChange={e => setEmail(e.target.value)} />
                 <br></br>
                 <label>Password</label>
                 <input className= "loginInput" type="password" placeholder="Enter Your Password" value={password} onChange={e => setPassword(e.target.value)}/>

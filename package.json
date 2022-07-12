@@ -22,7 +22,9 @@
   },
   "homepage": "https://github.com/Lucid-Wallet/lucid-wallet#readme",
   "dependencies": {
+    "@types/cors": "^2.8.12",
     "concurrently": "^7.2.2",
+    "cors": "^2.8.5",
     "express": "^4.18.1",
     "nodemon": "^2.0.19",
     "pg": "^8.7.3",
