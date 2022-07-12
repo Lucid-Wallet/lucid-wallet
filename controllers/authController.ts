@@ -2,40 +2,39 @@
 
 import { Request, Response, NextFunction } from 'express';
 import { QueryResult } from 'pg';
-
 import { AuthController } from '../types';
+import jwt from 'jsonwebtoken';
 
-const db = require('../models');
+import { db } from '../models';
 
 export const authController:AuthController = {
   /**
-   * @param req { username: String, password: String }
+   * @param req { email: String, password: String }
    * @param res { 200 OK or 401 Unauthorized}
    * @param next 
    */
   signIn: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    try {
-      
-      if (req.body.username && req.body.password) {
-        const values:Array<String> = [req.body.username.toLowerCase(), req.body.password];
-        const query:String = 'SELECT user_id, username FROM accounts WHERE lower(username) = $1 and password = $2';
+
+    try {  
+      if (req.body.email && req.body.password) {
+        const values:Array<String> = [req.body.email.toLowerCase(), req.body.password];
+        const query:String = 'SELECT email, display_name FROM accounts WHERE lower(email) = $1 and password = $2';
         
-        const results:Promise<QueryResult> = db.query(query, values);
+        const results:Promise<QueryResult> = db.query(query, values, null);
 
-        const uid = (await results).rows[0].user_id;
-        const username = (await results).rows[0].username;
+        const email = (await results).rows[0].email;
+        const display_name = (await results).rows[0].display_name;
 
-        res.locals.user = { uid: uid, username: username };
+        res.locals.user = { display_name: display_name, email: email};
+
         return next();
-        
       } else {
         return next({
-          log: 'Missing username or password field',
+          log: 'Missing email or password field',
           status: 400,
-          message: 'Missing username or password field'
+          message: 'Missing email or password field'
         })
       }
-
     }
     catch(err){
       console.log(err);
@@ -63,9 +62,9 @@ export const authController:AuthController = {
 
   signUp: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const values = [req.body.username, req.body.password, req.body.email];
-      const query:String = 'INSERT INTO accounts (username, password, email) VALUES ($1, $2, $3)';
-      const results:Promise<QueryResult> = await db.query(query, values);
+      const values = [req.body.email, req.body.password];
+      const query:String = 'INSERT INTO accounts (email, password) VALUES ($1, $2)';
+      const results:Promise<QueryResult> = await db.query(query, values, null);
       
       return next();
     }
