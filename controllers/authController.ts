@@ -17,15 +17,23 @@ export const authController:AuthController = {
 
     try {  
       if (req.body.email && req.body.password) {
+
+        // Get user information from database
         const values:Array<String> = [req.body.email.toLowerCase(), req.body.password];
         const query:String = 'SELECT email, display_name FROM accounts WHERE lower(email) = $1 and password = $2';
         
         const results:Promise<QueryResult> = db.query(query, values, null);
 
+        const user_id = (await results).rows[0].user_id;
         const email = (await results).rows[0].email;
         const display_name = (await results).rows[0].display_name;
 
+        const user:{user_id:Number} = {user_id:user_id};
         res.locals.user = { display_name: display_name, email: email};
+
+        // On successful login assign valid session to user
+
+        
 
         return next();
       } else {
@@ -62,8 +70,8 @@ export const authController:AuthController = {
 
   signUp: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const values = [req.body.email, req.body.password];
-      const query:String = 'INSERT INTO accounts (email, password) VALUES ($1, $2)';
+      const values = [req.body.email, req.body.display_name, req.body.password];
+      const query:String = 'INSERT INTO accounts (email, display_name, password) VALUES ($1, $2, $3)';
       const results:Promise<QueryResult> = await db.query(query, values, null);
       
       return next();
