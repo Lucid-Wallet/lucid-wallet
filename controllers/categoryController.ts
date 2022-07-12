@@ -2,7 +2,9 @@
 
 import { Request, Response, NextFunction } from "express";
 
-import { CategoryController } from '../types'
+import { CategoryController } from '../types';
+import { QueryResult } from 'pg';
+import { db } from '../models';
 
 export const categoryController:CategoryController = {
 
@@ -12,15 +14,20 @@ export const categoryController:CategoryController = {
    * @param res { JSON: array of categories belonging to the user }
    * @param next 
    */
-  getCategories: (req: Request, res: Response, next: NextFunction):void => {
+  getCategories: async (req: Request, res: Response, next: NextFunction):Promise<void> => {
     try {
-      const query:String = ''
+      const values:String[] = [req.body.user_id];
+      const query:String = 'SELECT category_id, category FROM categories WHERE user_id = $1';
+
+      const results:Promise<QueryResult> = await db.query(query, values, null);
+      
+      res.locals.categories = (await results).rows;
       return next();
     }
     catch(err){
       console.log(err);
       return next({
-        log: 'Error saving to database',
+        log: 'Error retrieving from database',
         status: 400,
         message: {err}
       });
@@ -33,9 +40,12 @@ export const categoryController:CategoryController = {
    * @param res { 201 Created }
    * @param next 
    */
-  addCategory: (req: Request, res: Response, next: NextFunction):void => {
+  addCategory: async (req: Request, res: Response, next: NextFunction):Promise<void> => {
     try {
-      const query:String = ''
+      const values:String[] = [req.body.user_id, req.body.category];
+      const query:String = 'INSERT INTO categories (user_id, category) VALUES ($1, $2)';
+
+      const results = await db.query(query, values, null);
       return next();
     }
     catch(err){
@@ -54,15 +64,18 @@ export const categoryController:CategoryController = {
    * @param res { 204 OK No response }
    * @param next 
    */
-  deleteCategory: (req: Request, res: Response, next: NextFunction) => {
+  deleteCategory: async (req: Request, res: Response, next: NextFunction):Promise<void> => {
     try {
-      const query:String = ''
+      const values:String[] = [req.body.user_id, req.body.category_id];
+      const query:String = 'DELETE FROM categories WHERE user_id = $1 AND category_id = $2';
+
+      const results = db.query(query, values, null)
       return next();
     }
     catch(err){
       console.log(err);
       return next({
-        log: 'Error saving to database',
+        log: 'Error deleting from database',
         status: 400,
         message: {err}
       });
