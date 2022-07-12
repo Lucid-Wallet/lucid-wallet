@@ -4,8 +4,11 @@ import { Request, Response, NextFunction } from 'express';
 import { QueryResult } from 'pg';
 import { AuthController } from '../types';
 import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
 
 import { db } from '../models';
+
+dotenv.config();
 
 export const authController:AuthController = {
   /**
@@ -32,6 +35,8 @@ export const authController:AuthController = {
         res.locals.user = { display_name: display_name, email: email};
 
         // On successful login assign valid session to user
+        jwt.sign(user, process.env.JWT_TOKEN_SECRET);
+
 
         
 
