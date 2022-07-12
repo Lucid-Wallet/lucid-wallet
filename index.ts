@@ -2,13 +2,13 @@
 
 import express, { Request, Response, Application, NextFunction, RequestHandler } from 'express';
 import { authController } from './controllers/authController';
+import { categoryController } from './controllers/categoryController';
+import { itemController } from './controllers/itemController';
+import { budgetController } from './controllers/budgetController';
 
-export interface authController {
-  signIn: RequestHandler,
-  signOut: RequestHandler
-}
 
 const app:Application = express();
+app.use(express.json());
 
 const PORT:number = 8080;
 
@@ -21,13 +21,69 @@ app.get('/', (req: Request, res: Response):Response => {
  * Sign in route
  */
 app.post('/signIn', authController.signIn, (req: Request, res:Response):Response => {
-  return res.sendStatus(200);
+  return res.json(res.locals.user);
 });
 
 /**
  * Sign up route
  */
 app.get('/signUp', authController.signUp, (req: Request, res: Response):Response => {
+  return res.sendStatus(200);
+});
+
+/**
+ * Retrieve budget
+ */
+app.get('/budget', budgetController.retrieveBudget, (req: Request, res: Response): Response => {
+  return res.sendStatus(200);
+});
+
+/**
+ * Edit budget
+ */
+app.post('/budget', budgetController.editBudget, (req: Request, res: Response): Response => {
+  return res.sendStatus(200);
+});
+
+/**
+ * Get all categories
+ */
+app.get('/category', categoryController.getCategories, (req: Request, res: Response): Response => {
+  return res.sendStatus(200);
+});
+
+/**
+ * Add a category
+ */
+app.post('/category', categoryController.addCategory, (req: Request, res: Response): Response => {
+  return res.sendStatus(200);
+});
+
+/**
+ * Delete a category
+ */
+app.delete('/category', categoryController.deleteCategory, (req: Request, res: Response): Response => {
+  return res.sendStatus(200);
+})
+
+/**
+ * Get all items
+ */
+app.get('/item', itemController.getItems, (req: Request, res: Response): Response => {
+  return res.sendStatus(200);
+});
+
+/**
+ * Add an item
+ */
+app.post('/item', itemController.addItem, (req: Request, res: Response): Response => {
+  return res.sendStatus(200);
+});
+
+/**
+ * Delete an item
+ */
+app.delete('/item', itemController.deleteItem, (req: Request, res: Response): Response => {
   return res.sendStatus(200);
 });
 
