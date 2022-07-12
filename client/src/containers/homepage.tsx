@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import BudgetSummary from "../components/budgetsummary";
-import FormCategory from "../components/category";
+import Category from "../components/category";
 
 const HomePage = () => {
 
@@ -12,7 +12,7 @@ const HomePage = () => {
         Welcome to Lucid Wallet
       </p>
       <div>
-      <FormCategory />
+      <Category />
       <BudgetSummary/>
       </div>
       <Link to="/">Log Out</Link>

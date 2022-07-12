@@ -13,7 +13,8 @@ import store from "../store";
 
 
 const initialState = {
-    categories: [],
+    user_id: 0,
+    category: [],
     expenses: [],
     total: 0,
 }
@@ -22,20 +23,27 @@ const categorySlice = createSlice({
     name: 'budget',
     initialState,
     reducers: {
+        fetchExpense: (state, action) => {
+            console.log('FETCHING EXPENSES')
+            state.expenses = [...action.payload];
+        },
         addExpense: (state, action) => {
             state.expenses.push(action.payload);
         },
-        addCategory: (state, action) => {
-            state.categories = action.payload;
+        fetchCategory: (state, action) => {
+            state.category = [...action.payload];
         },
-        fetchExpense: (state, action) => {
-            console.log('FETCHING EXPENSES')
-            state.expenses = [...action.payload]
+        addCategory: (state, action) => {
+            state.category = action.payload;
+        },
+        updateUser_id: (state, action) => {
+            console.log('UserID is updated in BudgetSlice', state.user_id)
+            state.user_id = action.payload;
         }
     }
 })
 
-export const { addCategory, addExpense, fetchExpense } = categorySlice.actions;
+export const { addCategory, addExpense, fetchExpense, updateUser_id, fetchCategory } = categorySlice.actions;
 
 
 export default categorySlice.reducer;
