@@ -1,12 +1,19 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { updateUser_id } from "../reducers/budgetslice";
 
 
 const LoginDisplay = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [verified, setVerified] = useState<boolean | undefined>();
+    const [verified, setVerified] = useState(' ');
+    
     const navigate = useNavigate();
+
+    const dispatch = useDispatch();
+    const user_id = useSelector(state => state.budget.user_id);
 
     const loginCheck = () => {
         const user = {
@@ -24,6 +31,9 @@ const LoginDisplay = () => {
         .then(data => {
             console.log(data)
             if(data.display_name){
+                //Assuming backend will send the userid
+                // data.user_id=5
+                // dispatch(updateUser_id(data.user_id))
                 setVerified(data)
                 navigate('/home');
             }else{
