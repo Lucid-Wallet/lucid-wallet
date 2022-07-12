@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 const SignUp = () => {
     const [email, setEmail] = useState('');
-    const [displayname, setDisplayname]
+    const [displayname, setDisplayname] = useState('');
     const [password, setPassword] = useState('');
     
     const navigate = useNavigate();
@@ -19,6 +19,7 @@ const SignUp = () => {
 //add functionality to handle leaving fields blank
         const user = {
             email: email,
+            display_name: displayname,
             password: password
         };
         fetch('http://localhost:8080/signUp', {
@@ -39,6 +40,10 @@ const SignUp = () => {
         <label>Email</label>
         <input className="emailInput" type="text" placeholder="Enter Your Email" value={email}
             onChange={e => setEmail(e.target.value)} />
+        <br></br>
+        <label>Display Name</label>
+        <input className="displaynameInput" type="text" placeholder="Create a Display Name" value={displayname} 
+            onChange={e => setDisplayname(e.target.value)} />
         <br></br>
         <label>Password</label>
         <input className="passwordInput" type="password" placeholder="Enter Your Password" value={password}

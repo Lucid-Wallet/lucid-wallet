@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import categorySlice from './reducers/categoryslice'
+import budgetSlice from './reducers/budgetslice'
 
 const store = configureStore({
   reducer: {
-        category: categorySlice,
+        budget: budgetSlice,
   }
 })
 

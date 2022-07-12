@@ -12,15 +12,24 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 
 const initialState = {
-    categories: {},
+    categories: [],
+    expenses: [],
+    total: 0,
 }
 
 const categorySlice = createSlice({
-    name: 'summary',
+    name: 'budget',
     initialState,
     reducers: {
+        addExpense: (state, action) => {
+            state.expenses.push(action.payload);
+        },
         addCategory: (state, action) => {
             state.categories = action.payload;
+        },
+        fetchExpense: (state, action) => {
+            console.log('FETCHING EXPENSES')
+            state.expenses = [...action.payload]
         }
     }
 })
