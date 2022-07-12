@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -10,11 +9,6 @@ const SignUp = () => {
     
     const navigate = useNavigate();
 
-    // States for checking the errors
-    // const [submitted, setSubmitted] = useState(false);
-    // const [error, setError] = useState(false);
-
-    
     const signupSubmit = () => {
 //add functionality to handle leaving fields blank
         const user = {
@@ -28,6 +22,12 @@ const SignUp = () => {
                 'Content-Type': 'Application/JSON'
             },
             body: JSON.stringify(user)
+        })
+        .then(response => {
+            if (response.ok) {
+                console.log('SIGNUP SUCCESSFUL')
+                navigate('/setup');
+            }
         })
         .catch(err => console.log('Error occured while creating an account', err));
 //{ uid: Number, username: <string> }

@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import store from "../store";
 
 // const baseCategories = {
 //     foodAndDrinks: 0,
@@ -34,6 +35,7 @@ const categorySlice = createSlice({
     }
 })
 
-export const { addCategory } = categorySlice.actions;
+export const { addCategory, addExpense, fetchExpense } = categorySlice.actions;
+
 
 export default categorySlice.reducer;

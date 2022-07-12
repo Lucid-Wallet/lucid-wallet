@@ -1,9 +1,13 @@
 import React from "react";
-// import { useSelector } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
+import { addCategory } from "../reducers/budgetslice";
 
 
 const FormCategory = () => {
     // const categories = useSelector()
+    const categories = useSelector(state => state.categories)
+    
+
     return (
         <div id="categoryBox">
             <div>
