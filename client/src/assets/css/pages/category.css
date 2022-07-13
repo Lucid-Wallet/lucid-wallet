@@ -1,0 +1,83 @@
+.categoryPageCx {
+  height: 100%;
+}
+.categoryContentCx {
+  position: relative;
+  top: 3em;
+  border: 3px black solid;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.categoriesList {
+  width: 60%;
+  border: 5px black solid;
+  padding: 2em;
+  
+  background-color: white;
+  border: 1px solid rgb(219,219,219);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8em;
+}
+
+.categoryCx {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  font-weight: 200;
+}
+
+.addCategoryContentCx {
+  margin: 0.4em;
+  padding: 0.4em;
+}
+
+.addCategoryField {
+  all: unset;
+  height: 2.0em;
+  font-size: 1.5em;
+  padding: 0.4em;
+
+  margin: 0.4em;
+  background: white;
+  border: 1px solid rgb(219,219,219);
+}
+
+.addCategoryField:focus{
+  border: 1px solid rgba(0,136,5,0.8953956582633054);
+}
+
+.addCategoryButton {
+  all:unset;
+
+  height: 2.5em;
+  width: 4.0em;
+  
+  margin: 0.4em 0.4em 0.4em 0;
+  padding: 0.4em;
+
+  border: 1px rgba(22,51,5,1) solid;
+  border-radius: 0.4em;
+  background-color: white;
+
+  text-align: center;
+  
+  cursor: pointer;
+}
+
+.addCategoryButton:hover {
+  color: rgba(22,51,5,1);
+}
+
+.addCategoryButton:active {
+  background: rgba(4,29,1,1);
+  color: white;
+}
