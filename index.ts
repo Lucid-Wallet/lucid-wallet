@@ -53,7 +53,7 @@ app.get('/signOut', authController.signOut, (req: Request, res: Response):Respon
  * Retrieve budget
  */
 app.get('/budget', budgetController.retrieveBudget, (req: Request, res: Response): Response => {
-  return res.sendStatus(200);
+  return res.sendStatus(200).json(res.locals.budget);
 });
 
 /**

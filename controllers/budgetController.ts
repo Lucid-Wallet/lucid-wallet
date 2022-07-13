@@ -3,6 +3,7 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from 'jsonwebtoken';
 import { db } from "../models";
+import { QueryResult } from 'pg';
 
 export const budgetController = {
   /**
@@ -22,7 +23,7 @@ export const budgetController = {
       const values:String[] = [String(req.body.income), String(req.body.housing), String(req.body.utilities), String(req.body.bills_other), String(req.body.groceries), String(req.body.car), String(req.body.gas), String(uid)]
       const query:String = 'UPDATE accounts SET (income = $1, housing = $2, utilities = $3, bills_other = $4, groceries = $5, car = $6, gas = $7) WHERE user_id = $8'
       
-      const results = await db.query(query, values, null);
+      const results:Promise<QueryResult> = await db.query(query, values, null);
       return next();
     }
     catch(err){
@@ -40,9 +41,20 @@ export const budgetController = {
    * @param res { 201 Created }
    * @param next 
    */
-  retrieveBudget: (req: Request, res: Response, next: NextFunction):void => {
+  retrieveBudget: async (req: Request, res: Response, next: NextFunction):Promise<void> => {
+    let uid: Number | undefined ;
+    const jwtToken = req.cookies.jwt;
+    jwt.verify(jwtToken, process.env.JWT_TOKEN_SECRET as string, (err: any, data: any) => {
+    uid = data.user_id;
+    });
+
     try {
-      const query:String = ''
+      const values:String[] = [String(uid)]
+      const query:String = 'SELECT income, housing, utilities, bills_other, groceries, car, gas FROM accounts WHERE user_id = $1'
+
+      const results:Promise<QueryResult> = await db.query(query, values, null);
+
+      res.locals.budget = (await results).rows[0];
       return next();
     }
     catch(err){
@@ -55,7 +67,7 @@ export const budgetController = {
     }
   },
 
-  editBudget: (req: Request, res: Response, next: NextFunction): void => {
+  editBudget: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const query:String = ''
       return next();

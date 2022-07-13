@@ -43,15 +43,15 @@ export const itemController:ItemController = {
    */
   addItem: async (req: Request, res: Response, next: NextFunction):Promise<void> => {
     try {
-      const values:[Number, Number, String, Number, Number, Number, String, Boolean] = [
-        req.body.user_id, 
-        req.body.category_id, 
+      const values:String[] = [
+        String(req.body.user_id), 
+        String(req.body.category_id), 
         req.body.name, 
-        req.body.count, 
-        req.body.price_per, 
-        req.body.rating, 
+        String(req.body.count), 
+        String(req.body.price_per), 
+        String(req.body.rating), 
         req.body.note, 
-        req.body.variable_cost];
+        String(req.body.variable_cost)];
 
       const query:String = 'INSERT INTO items (user_id, category_id, name, count, price_per, rating, note, variable_cost) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)';
       
