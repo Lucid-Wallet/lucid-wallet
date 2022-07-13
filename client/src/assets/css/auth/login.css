@@ -71,3 +71,13 @@
   opacity: 1;
   transition: 0.5s;
 }
+
+.logoCx {
+  width: 200px;
+  height: 200px;
+}
+
+.logoIcon {
+  width: 150px;
+  height: 150px;
+}

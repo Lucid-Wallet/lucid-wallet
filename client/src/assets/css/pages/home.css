@@ -1,5 +1,80 @@
 .homePageContentCx {
   position: relative;
   top: 3em;
-  border: 3px black solid;
+
+  display: flex;
+  justify-content: center;
+}
+
+.homeCategoriesCx {
+  display: flex;
+  flex-direction: column;
+
+  padding: 1em;
+  width: 85%;
+}
+
+.homeCategoryHeader {
+  background: linear-gradient(to right, #8523b2, #9e5fbb);
+  color: white;
+  padding: 0.4em;
+}
+
+.homeCategoryItemsCx {
+
+  margin: 0.5em 0em 0.5em 0em;
+  padding: 0.5em;
+
+  background-color: white;
+  border: 1px solid rgb(219,219,219);
+}
+
+.homeCategoryItemsCx table {
+  width: 100%;
+  text-align: center;
+}
+
+.homeCategoryItemsCx table th {
+  font-weight: 700;
+  font-size: 1.2em;
+}
+
+.homeCategoryItemsCx table tr {
+  font-weight: 200;
+  font-size: 0.8em;
+  cursor: pointer;
+}
+
+.homeCategoryItemsCx table tr:hover {
+  font-weight: 700;
+  font-size: 0.8em;
+  color: #8523b2;
+}
+
+.homeCategoryTotal {
+  font-weight: 700;
+  font-size: 0.8em;
+}
+
+.homeCategoriesBtn {
+  all:unset;
+  
+  margin: 0.4em 0.4em 0.4em 0;
+  padding: 0.4em;
+
+  width: 10em;
+  border: 2px #9e5fbb solid;
+  border-radius: 0.4em;
+  background-color: white;
+  
+  cursor: pointer;
+}
+
+.homeCategoriesBtn:hover {
+  color: #9e5fbb;
+}
+
+.homeCategoriesBtn:active {
+  background: #8523b2;
+  color: white;
 }

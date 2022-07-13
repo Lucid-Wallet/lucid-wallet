@@ -7,6 +7,10 @@ const SignUp = () => {
 
   const [ passOrEmailErr, setPassOrEmailErr ] = useState('');
 
+  const onHaveAccountButtonClick = () => {
+    navigate('/')
+  }
+
   const onSignUpButtonClick = () => {
     const emailField = document.querySelector('#emailSignUpField') as HTMLInputElement;
     const displayNameField = document.querySelector('#displayNameSignUpField') as HTMLInputElement;
@@ -59,6 +63,7 @@ const SignUp = () => {
           <input className='signUpText' id='passwordSignUpField' type='text' placeholder='Password'></input>
           <input className='signUpText' id='passwordConfirmSignUpField' type='text' placeholder='Confirm your password'></input>
           <button className='signUpButton' onClick={ onSignUpButtonClick }>Sign Up</button>
+          <button className='signUpButton' onClick={ onHaveAccountButtonClick }>Already Have Account?</button>
           <div id="signUpFailText">{ passOrEmailErr }</div>
         </div>
       </div>

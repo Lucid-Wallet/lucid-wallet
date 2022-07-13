@@ -1,7 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Header = () => {
+
+  const logOffCurrentUser = async () => {
+    await fetch('http://localhost:8080/signOut',{
+      credentials: 'include'
+    });
+  }
 
   return (
     <div className='headerCx'>
@@ -9,6 +15,7 @@ const Header = () => {
         <Link to='/home'><li>Home</li></Link>
         <Link to='/category'><li>Categories</li></Link>
         <Link to='/user'><li>User Profile</li></Link>
+        <Link to='/'><li onClick={ logOffCurrentUser }>Log off</li></Link>
       </ul>
     </div>
   );

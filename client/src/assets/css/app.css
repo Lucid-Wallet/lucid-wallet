@@ -9,4 +9,6 @@ body {
   height: 100vh;
   padding: 0;
   margin: 0;
+
+  background-color: rgb(246, 241, 241);
 }

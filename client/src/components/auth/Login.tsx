@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import logoIcon from '../../assets/icons/lucid_wallet.png';
 
 const Login = () => {
 
@@ -45,7 +46,9 @@ const Login = () => {
   return (
     <div className='loginPageCx'>
       <div className='loginContentCx'>
-        <div className='logoCx'>INSERT LOGO HERE</div> 
+          <div className='logoCx'>
+            {/* <img className='logoIcon' alt='MAIN LOGO IS HERE' src={logoIcon} /> */}
+          </div> 
         <div className='loginFieldCx'>
           <input className='loginText' id='emailLoginField' type='text' placeholder='Email address (e.g. 123@123.com'></input>
           <input className='loginText' id='passwordLoginField' type='text' placeholder='Password'></input>

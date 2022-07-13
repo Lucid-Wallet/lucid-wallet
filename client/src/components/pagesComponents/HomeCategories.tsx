@@ -21,7 +21,11 @@ const HomeCategories = () => {
   }
   
   return (
-    <div>
+    <div className='homeCategoriesCx'>
+      <div className='homeCategoriesBtnCx'>
+        <button className='homeCategoriesBtn'>Add Category</button>
+        <button className='homeCategoriesBtn'>Add Item</button>
+      </div>
       { homeCategoriesArr }
     </div>
   );
