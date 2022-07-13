@@ -13,7 +13,6 @@ const Header = () => {
     <div className='headerCx'>
       <ul>
         <Link to='/home'><li>Home</li></Link>
-        <Link to='/category'><li>Categories</li></Link>
         <Link to='/user'><li>User Profile</li></Link>
         <Link to='/'><li onClick={ logOffCurrentUser }>Log off</li></Link>
       </ul>

@@ -1,5 +1,7 @@
 import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
+import { add } from "lodash";
 import { RootState } from "../store";
+import { CategoryType, HomeCategoryType } from "../types";
 
 export const getCategories = createAsyncThunk(
   "item/categories",
@@ -8,6 +10,28 @@ export const getCategories = createAsyncThunk(
       credentials: 'include'
     })
     return (await res.json());
+  }
+);
+
+export const addCategory = createAsyncThunk(
+  "item/addCategory",
+  async (newCategory: string) => {
+    const postBody = {
+      category: newCategory
+    }
+    const res = await fetch('http://localhost:8080/category', {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'Application/JSON',
+      },
+      body: JSON.stringify(postBody)
+    })
+    const addedCategory = {
+      category_id: 0,
+      category: newCategory,
+    }
+    return (addedCategory);
   }
 );
 
@@ -21,9 +45,21 @@ export const getItems = createAsyncThunk(
   }
 );
 
-const initialState = {
+//To get username
+export const getProfile = createAsyncThunk(
+  "items/user",
+  async(dispatch, getState) => {
+    const res = await fetch ('http://localhost:8080/profile', {
+      credentials: 'include'
+    });
+    return (await res.json());
+  }
+) 
+
+const initialState: {categories: CategoryType[], items: any , user:string } = {
   categories: [],
   items: {},
+  user:'',
 };
 
 export const itemSlice = createSlice({
@@ -31,9 +67,6 @@ export const itemSlice = createSlice({
   name: 'item',
   initialState: initialState,
   reducers: {
-    addCategory: (state, action) => {
-      return state;
-    },
     removeCategory: (state, action) => {
       return state;
     }
@@ -46,16 +79,22 @@ export const itemSlice = createSlice({
     builder.addCase(getItems.fulfilled, (state, action) => {
       return { ...state, items: action.payload };
     });
+
+    builder.addCase(addCategory.fulfilled, (state, action) => {
+      state.categories.push(action.payload);
+      console.log(current(state.categories));
+      return state;
+    })
   }
 });
 
 export const {
-  addCategory,
   removeCategory,
 } = itemSlice.actions;
 
 export const selectCategories = (state:RootState) => state.item.categories;
 export const selectItems = (state:RootState) => state.item.items;
+export const selectUser = (state:RootState) => state.item.user;
 
 export default itemSlice.reducer;
 

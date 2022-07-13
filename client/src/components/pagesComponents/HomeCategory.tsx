@@ -20,16 +20,18 @@ const HomeCategory = (props:HomeCategoryType) => {
       <div className='homeCategoryHeader'>{props.category}</div>
       <div className='homeCategoryItemsCx'>
         <table>
-          <tr>
-            <th>Date Purchased</th>
-            <th>Name</th>
-            <th>Price Per</th>
-            <th>Count</th>
-            <th>Note</th>
-            <th>Rating</th>
-            <th>Total</th>
-          </tr>
-          { itemsArr }
+          <tbody>
+            <tr>
+              <th>Date Purchased</th>
+              <th>Name</th>
+              <th>Price Per</th>
+              <th>Count</th>
+              <th>Note</th>
+              <th>Rating</th>
+              <th>Total</th>
+            </tr>
+            { itemsArr }
+          </tbody>
         </table>
         <div className='homeCategoryTotal'>
           { `$${categoryTotal.toFixed(2)}` }

@@ -4,6 +4,10 @@ import logoIcon from '../../assets/icons/lucid_wallet.png';
 
 const Login = () => {
 
+  const gitHubClientID = 'c2d66637467c636ebf51';
+  const gitHubCallback = 'http://localhost:8080/auth';
+  const path = '/';
+
   const navigate = useNavigate();
 
   const loginButtonOnClick = () => {
@@ -47,16 +51,18 @@ const Login = () => {
     <div className='loginPageCx'>
       <div className='loginContentCx'>
           <div className='logoCx'>
-            {/* <img className='logoIcon' alt='MAIN LOGO IS HERE' src={logoIcon} /> */}
+            <img className='logoIcon' alt='MAIN LOGO IS HERE' src={logoIcon} />
           </div> 
         <div className='loginFieldCx'>
           <input className='loginText' id='emailLoginField' type='text' placeholder='Email address (e.g. 123@123.com'></input>
-          <input className='loginText' id='passwordLoginField' type='text' placeholder='Password'></input>
+          <input className='loginText' id='passwordLoginField' type='password' placeholder='Password'></input>
           <button className='loginButton' onClick={ loginButtonOnClick }>Log In</button>
           <div id="loginFailText">Incorrect email or password</div>
         </div>
         <div className='loginOptionsCx'>
-          <button className='oAuthButton'>Sign in with Github</button>
+          <a href={`https://github.com/login/oauth/authorize?client_id=${gitHubClientID}&redirect_uri=${gitHubCallback}?path=${path}&scope=user:email`}>
+            <button className='oAuthButton'>Sign in with Github</button>
+          </a>
         </div> 
         <div className='signupCx'>
             <span>Don't have an account yet?</span>

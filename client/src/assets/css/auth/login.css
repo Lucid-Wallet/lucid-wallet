@@ -5,7 +5,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgb(246, 241, 241);
+  background: rgb(4,29,1);
+  background: linear-gradient(321deg, rgba(4,29,1,1) 0%, rgba(22,51,5,1) 50%, rgba(0,136,5,0.8953956582633054) 100%);
 }
 
 .loginContentCx{
@@ -78,6 +79,9 @@
 }
 
 .logoIcon {
-  width: 150px;
-  height: 150px;
+  width: 200px;
+  height: 200px;
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
 }

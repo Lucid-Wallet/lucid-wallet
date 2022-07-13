@@ -3,7 +3,11 @@
 import express, { Request, Response, Application, NextFunction, RequestHandler } from 'express';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
-import cors from 'cors'
+import cors from 'cors';
+import {get} from 'lodash';
+import axios from 'axios';
+import jwt from 'jsonwebtoken';
+const querystring = require('querystring');
 
 dotenv.config();
 
@@ -52,6 +56,13 @@ app.post('/signUp', authController.signUp, (req: Request, res: Response):Respons
 app.get('/signOut', authController.signOut, (req: Request, res: Response):Response => {
   return res.sendStatus(200);
 });
+/**
+ * Get user displayname
+ */
+ app.get('/profile', authController.getUserId, (req: Request, res: Response):Response => {
+  return res.sendStatus(200).json(res.locals.display_name);
+});
+
 
 /**
  * Retrieve budget
@@ -107,6 +118,63 @@ app.post('/item', authController.getUserId, itemController.addItem, (req: Reques
  */
 app.delete('/item', authController.getUserId, itemController.deleteItem, (req: Request, res: Response): Response => {
   return res.sendStatus(200);
+});
+
+/**
+ * Helper and Route for GitHub OAuth
+ */
+ const getGitHubUser = async ({code}: {code: String}):Promise<any> => {
+  const url = `https://github.com/login/oauth/access_token?client_id=${process.env.GITHUB_CLIENT_ID}&client_secret=${process.env.GITHUB_CLIENT_SECRET}&code=${code}`;
+
+    const gitHubToken = await axios
+      .post(url)
+      .then((res) => res.data)
+
+      .catch((error) => {
+        throw Error
+      });
+
+    console.log(gitHubToken)
+
+    const decoded = querystring.parse(gitHubToken);
+    console.log(decoded)
+
+    const accessToken = decoded.access_token;
+    console.log(accessToken)
+
+    return axios
+    .get('https://api.github.com/user', {
+      headers: {Authorization: `Bearer ${accessToken}`}
+    })
+    .then((res) => res.data)
+    .catch((error) => {
+      console.error('Error retrieving user from GitHub')
+      throw error
+    })
+  };
+
+ app.get('/auth', async (req: Request, res: Response):Promise<void> => {
+  const code = get(req, 'query.code');
+  const path = get(req, 'query.path', '/');
+  if (!code) throw new Error ('no code');
+
+  try {
+    const gitHubUser = await getGitHubUser({code});
+    console.log(JSON.stringify(gitHubUser));
+
+    const secret:String|undefined = process.env.JWT_TOKEN_SECRET;
+    const token:String = jwt.sign(gitHubUser, secret as string);
+
+    res.cookie("github-jwt", token, {
+      httpOnly: true,
+      domain: "localhost"
+    })
+    res.redirect(`http:localhost:3000/home`);
+  }
+
+  catch(err) {
+    console.log(err)
+  }
 });
 
 /**

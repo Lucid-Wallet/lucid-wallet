@@ -120,6 +120,7 @@ export const authController:AuthController = {
 
       jwt.verify(jwtToken, process.env.JWT_TOKEN_SECRET as string, (err: any, data: any) => {
         res.locals.user_id = data.user_id;
+        res.locals.display_name = data.display_name;
       });
       
       return next();
@@ -133,4 +134,16 @@ export const authController:AuthController = {
       });
     }
   },
+  getDisplayname: (req: Request, res: Response, next: NextFunction): void => {
+    /*
+    try {
+      const jwtToken = req.cookies.jwt;
+
+      jwt.verify(jwtToken, process.env.JWT_TOKEN_SECRET as string, (err: any, data: any) => {
+        res.locals.user_id = data.user_id;
+        res.locals.display_name = data.display_name;
+      });
+    }
+    */
+  }
 };
