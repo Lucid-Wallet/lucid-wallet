@@ -21,3 +21,7 @@ export interface ItemType {
   user_id: number,
   variable_cost: boolean
 }
+
+export interface HomeItemType {
+  item: ItemType
+}

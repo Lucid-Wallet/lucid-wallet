@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useAppSelector } from '../../hooks';
 import { selectItems } from '../../reducers/itemSlice';
 
@@ -21,7 +22,11 @@ const HomeCategories = () => {
   }
   
   return (
-    <div>
+    <div className='homeCategoriesCx'>
+      <div className='homeCategoriesBtnCx'>
+        <Link to='/category'><button className='homeCategoriesBtn'>Add Category</button></Link>
+        <Link to='/item'><button className='homeCategoriesBtn'>Add Item</button></Link>
+      </div>
       { homeCategoriesArr }
     </div>
   );

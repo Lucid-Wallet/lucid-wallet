@@ -50,7 +50,7 @@
   transition: 0.5s;
   
   border-radius: 2px;
-  border: 1px solid #ff006f;
+  border: 1px solid rgba(0,136,5,0.8953956582633054);
 }
 
 .signUpButton:hover {
@@ -59,7 +59,12 @@
   width: 15em;
   color: rgb(219,219,219);
   border: none;
-  background: linear-gradient(to right, #9e5fbb, #ff006f);
+  background: linear-gradient(321deg, rgba(4,29,1,1) 0%, rgba(22,51,5,1) 50%, rgba(0,136,5,0.8953956582633054) 100%);
+}
+
+.signUpHeaderCx {
+  text-align: center;
+  font-size: 2rem;
 }
 
 #signUpFailText {

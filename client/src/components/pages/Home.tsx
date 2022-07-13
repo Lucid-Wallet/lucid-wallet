@@ -19,7 +19,6 @@ const Home = () => {
     <div className='homePageCx'>
       <Header />
       <div className='homePageContentCx'>
-        <div>Home Page</div>
         <HomeCategories />
       </div>
     </div>

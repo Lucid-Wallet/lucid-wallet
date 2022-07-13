@@ -18,6 +18,13 @@ export const authController:AuthController = {
   signIn: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
 
     try {
+      if (req.cookies.githubjwt) {
+        const githubJwtToken = req.cookies.githubjwt;
+
+        jwt.verify(githubJwtToken, process.env.JWT_TOKEN_SECRET as string, (err: any, data: any) => {
+        
+      });
+      }
       console.log('Process env ', );
       if (req.body.email && req.body.password) {
         // Get user information from database
@@ -133,4 +140,24 @@ export const authController:AuthController = {
       });
     }
   },
+  getDisplayname: async (req: Request, res: Response, next: NextFunction) => {
+    
+    try {
+      const values:Array<String> = [res.locals.user_id];
+      const query:String = 'SELECT display_name FROM accounts WHERE user_id = $1';
+      const results:Promise<QueryResult> = await db.query(query, values, null);
+      res.locals.display_name = results;
+      console.log('WE ARE IN GETDISPLAYNAME')
+      return next();
+    }catch (err) {
+      console.log(err)
+      return next({
+        log: 'Error saving to database',
+        status: 400,
+        message: {err}
+      });
+    }
+
+
+  }
 };

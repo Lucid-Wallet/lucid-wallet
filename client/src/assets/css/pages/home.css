@@ -1,5 +1,86 @@
 .homePageContentCx {
   position: relative;
   top: 3em;
-  border: 3px black solid;
+
+  display: flex;
+  justify-content: center;
+}
+
+.homeCategoriesCx {
+  display: flex;
+  flex-direction: column;
+
+  padding: 1em;
+  width: 85%;
+}
+
+.homeCategoryHeader {
+  background: linear-gradient(321deg, rgba(4,29,1,1) 0%, rgba(22,51,5,1) 50%, rgba(0,136,5,0.8953956582633054) 100%);
+  color: white;
+  padding: 0.4em;
+}
+
+.homeCategoryItemsCx {
+
+  margin: 0.5em 0em 0.5em 0em;
+  padding: 0.5em;
+
+  background-color: white;
+  border: 1px solid rgb(219,219,219);
+}
+
+.homeCategoryItemsCx table {
+  width: 100%;
+  text-align: center;
+}
+
+.homeCategoryItemsCx table th {
+  font-weight: 700;
+  font-size: 1.2em;
+  color: black;
+}
+
+.homeCategoryItemsCx table tr {
+  font-weight: 200;
+  font-size: 0.8em;
+  cursor: pointer;
+}
+
+.homeCategoryItemsCx table tr:hover {
+  font-weight: 700;
+  font-size: 0.8em;
+  color: rgba(0,136,5,0.8953956582633054)
+}
+
+
+.homeCategoryTotal {
+  font-weight: 700;
+  font-size: 0.8em;
+}
+
+.homeCategoriesBtnCx a {
+  all: unset;
+}
+
+.homeCategoriesBtn {
+  all:unset;
+  
+  margin: 0.4em 0.4em 0.4em 0;
+  padding: 0.4em;
+
+  width: 10em;
+  border: 2px rgba(22,51,5,1) solid;
+  border-radius: 0.4em;
+  background-color: white;
+  
+  cursor: pointer;
+}
+
+.homeCategoriesBtn:hover {
+  color: rgba(22,51,5,1);
+}
+
+.homeCategoriesBtn:active {
+  background: rgba(4,29,1,1);
+  color: white;
 }

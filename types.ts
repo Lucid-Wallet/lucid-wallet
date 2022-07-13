@@ -4,7 +4,8 @@ export interface AuthController {
   signIn: RequestHandler,
   signOut: RequestHandler,
   signUp: RequestHandler,
-  getUserId: RequestHandler
+  getUserId: RequestHandler,
+  getDisplayname: RequestHandler,
 }
 
 export interface CategoryController {
