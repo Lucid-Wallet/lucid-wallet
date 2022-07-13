@@ -2,9 +2,11 @@ import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'; 
 
 
+import './assets/css/app.css'
 import './assets/css/login.css'
 
 import Login from './components/auth/Login';
+
 
 
 const App = () => {
