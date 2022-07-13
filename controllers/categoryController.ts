@@ -17,11 +17,7 @@ export const categoryController:CategoryController = {
   getCategories: async (req: Request, res: Response, next: NextFunction):Promise<void> => {
     try {
 
-      let uid: Number | undefined ;
-      const jwtToken = req.cookies.jwt;
-      jwt.verify(jwtToken, process.env.JWT_TOKEN_SECRET as string, (err: any, data: any) => {
-        uid = data.user_id;
-      });
+      const uid: Number | undefined = res.locals.user_id;
       
       const values:String[] = [ String(uid) ];
       console.log(uid);
@@ -50,7 +46,9 @@ export const categoryController:CategoryController = {
    */
   addCategory: async (req: Request, res: Response, next: NextFunction):Promise<void> => {
     try {
-      const values:String[] = [req.body.user_id, req.body.category];
+      const uid: Number | undefined = res.locals.user_id;
+
+      const values:String[] = [String(uid), req.body.category];
       const query:String = 'INSERT INTO categories (user_id, category) VALUES ($1, $2)';
 
       const results = await db.query(query, values, null);
@@ -68,13 +66,14 @@ export const categoryController:CategoryController = {
 
   /**
    * Enables user to delete a category to their profile
-   * @param req { uid: Number, category: <category_id> }
+   * @param req { category: <category_id> }
    * @param res { 204 OK No response }
    * @param next 
    */
   deleteCategory: async (req: Request, res: Response, next: NextFunction):Promise<void> => {
     try {
-      const values:String[] = [req.body.user_id, req.body.category_id];
+      const uid: Number | undefined = res.locals.user_id;
+      const values:String[] = [ uid, req.body.category_id];
       const query:String = 'DELETE FROM categories WHERE user_id = $1 AND category_id = $2';
 
       const results = db.query(query, values, null)
