@@ -89,22 +89,6 @@ export const authController:AuthController = {
       const query:String = 'INSERT INTO accounts (email, display_name, password, created_at) VALUES ($1, $2, $3, $4)';
       const results:Promise<QueryResult> = await db.query(query, values, null);
 
-<<<<<<< HEAD
-      const idValue:String[] = [req.body.display_name];
-      const idQuery:String = 'SELECT user_id FROM accounts WHERE $1'
-
-      // const newUserId = await (db.query(idQuery, idValue, null))
-      
-      // fs.writeFile(`./userBudgets/${newUserId}.json`, '', function (err:any) {
-      //   if (err) throw err;
-      //   console.log('File Created')
-      // });
-
-      // const saveFile:String[]
-      // //userId, budgetId, filename
-
-=======
->>>>>>> 155763aa5eb4436b21be387a1e0028071db5469d
       return next();
     }
     catch(err){
