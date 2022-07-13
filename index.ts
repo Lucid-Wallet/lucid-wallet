@@ -43,7 +43,7 @@ app.post('/signIn', authController.signIn, (req: Request, res:Response):Response
  * Sign up route
  */
 app.post('/signUp', authController.signUp, (req: Request, res: Response):Response => {
-  return res.sendStatus(200);
+  return res.json({ success: true });
 });
 
 /**
