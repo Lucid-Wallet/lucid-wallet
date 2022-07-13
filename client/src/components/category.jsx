@@ -28,13 +28,14 @@ const Category = () => {
     useEffect(()=> {
         fetch('http://localhost:8080/category', {
             method: 'GET',
+            credentials: 'include',
             headers: {
                 'Content-Type': 'Application/JSON'
             },
         })
         .then(res => res.json())
         .then(data => {
-            category = data;
+            const category = data;
             console.log(category);
   
         })

@@ -22,8 +22,9 @@ const LoginDisplay = () => {
         };
         fetch('http://localhost:8080/signIn', {
             method: 'POST',
+            credentials: 'include',
             headers: {
-                'Content-Type': 'Application/JSON'
+                'Content-Type': 'Application/JSON',
             },
             body: JSON.stringify(user)
         })

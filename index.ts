@@ -11,14 +11,18 @@ import { authController } from './controllers/authController';
 import { categoryController } from './controllers/categoryController';
 import { itemController } from './controllers/itemController';
 import { budgetController } from './controllers/budgetController';
+import { METHODS } from 'http';
 
 const app:Application = express();
 
 app.use(express.json());
 app.use(cookieParser());
 
+// enable cors for interaction with react front-end
 app.use(cors({
-  origin: '*',
+  origin: 'http://localhost:3000',
+  methods: ['GET', 'POST', 'DELETE'],
+  credentials: true,
 }));
 
 const PORT:number = 8080;

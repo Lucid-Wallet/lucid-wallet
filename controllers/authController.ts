@@ -58,16 +58,14 @@ export const authController:AuthController = {
 
   /**
    * 
-   * @param req 
+   * @param req
    * @param res 
    * @param next 
    * @returns 
    */
   signOut: (req: Request, res: Response, next: NextFunction): void => {
     try {
-      console.log("before ", req.cookies);
       res.clearCookie('jwt', { path: '/'});
-      console.log("after ", req.cookies);
       return next();
     }
     catch(err){
@@ -108,10 +106,18 @@ export const authController:AuthController = {
     }
   },
 
+  /**
+   * Set res.locals.user_id = user_id from JWT token for middleware chain
+   * @param req 
+   * @param res
+   * @param next 
+   * @returns 
+   */
+
   getUserId: (req: Request, res: Response, next: NextFunction): void => {
     try {
       const jwtToken = req.cookies.jwt;
-      
+
       jwt.verify(jwtToken, process.env.JWT_TOKEN_SECRET as string, (err: any, data: any) => {
         res.locals.user_id = data.user_id;
       });
