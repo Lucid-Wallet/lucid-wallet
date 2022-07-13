@@ -18,32 +18,35 @@ const Category = () => {
     const user_id = useSelector(state => state.budget.user_id);
     const categorySelect = useSelector(state => state.budget.category)
     const dispatch = useDispatch();
-    const category = [];
+    // const category = [];
     const temp = 0;
     // dispatch(fetchCategory(category));
     
 
     // console.log("HERE ARE CATEGORIES", category);
     // const renderCategory = category.map()
-    useEffect(()=> {
+    // useEffect(()=> {
+
+    // },[temp])
+    
+    const handleclick =() => {
+        // console.log(category);
+        // dispatch(fetchCategory(category));
         fetch('http://localhost:8080/category', {
             method: 'GET',
+            // THIS PART IS PROBLEM
+            credentials: "include",
             headers: {
                 'Content-Type': 'Application/JSON'
             },
         })
         .then(res => res.json())
         .then(data => {
-            category = data;
-            console.log(category);
+            // category = data;
+            console.log(data);
   
         })
         .catch(err => console.log('CANNOT FETCH CATEGORY==>', err))
-    },[temp])
-    
-    const handleclick =() => {
-        console.log(category);
-        dispatch(fetchCategory(category));
     }
     return (
         <div id="categoryBox">
