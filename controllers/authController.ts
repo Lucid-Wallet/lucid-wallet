@@ -56,6 +56,13 @@ export const authController:AuthController = {
     }
   },
 
+  /**
+   * 
+   * @param req 
+   * @param res 
+   * @param next 
+   * @returns 
+   */
   signOut: (req: Request, res: Response, next: NextFunction): void => {
     try {
       console.log("before ", req.cookies);
@@ -99,5 +106,25 @@ export const authController:AuthController = {
         message: {err}
       });
     }
-  }
+  },
+
+  getUserId: (req: Request, res: Response, next: NextFunction): void => {
+    try {
+      const jwtToken = req.cookies.jwt;
+      
+      jwt.verify(jwtToken, process.env.JWT_TOKEN_SECRET as string, (err: any, data: any) => {
+        res.locals.user_id = data.user_id;
+      });
+      
+      return next();
+    }
+    catch (err) {
+      console.log(err)
+      return next({
+        log: 'Error saving to database',
+        status: 400,
+        message: {err}
+      });
+    }
+  },
 };

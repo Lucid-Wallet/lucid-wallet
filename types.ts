@@ -3,7 +3,8 @@ import { RequestHandler } from 'express';
 export interface AuthController {
   signIn: RequestHandler,
   signOut: RequestHandler,
-  signUp: RequestHandler
+  signUp: RequestHandler,
+  getUserId: RequestHandler
 }
 
 export interface CategoryController {

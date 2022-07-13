@@ -52,56 +52,56 @@ app.get('/signOut', authController.signOut, (req: Request, res: Response):Respon
 /**
  * Retrieve budget
  */
-app.get('/budget', budgetController.retrieveBudget, (req: Request, res: Response): Response => {
+app.get('/budget', authController.getUserId, budgetController.retrieveBudget, (req: Request, res: Response): Response => {
   return res.sendStatus(200).json(res.locals.budget);
 });
 
 /**
  * Edit budget
  */
-app.post('/budget', budgetController.editBudget, (req: Request, res: Response): Response => {
+app.post('/budget', authController.getUserId, budgetController.editBudget, (req: Request, res: Response): Response => {
   return res.sendStatus(200);
 });
 
 /**
  * Get all categories
  */
-app.get('/category', categoryController.getCategories, (req: Request, res: Response): Response => {
+app.get('/category', authController.getUserId, categoryController.getCategories, (req: Request, res: Response): Response => {
   return res.json(res.locals.categories);
 });
 
 /**
  * Add a category
  */
-app.post('/category', categoryController.addCategory, (req: Request, res: Response): Response => {
+app.post('/category', authController.getUserId, categoryController.addCategory, (req: Request, res: Response): Response => {
   return res.sendStatus(200);
 });
 
 /**
  * Delete a category
  */
-app.delete('/category', categoryController.deleteCategory, (req: Request, res: Response): Response => {
+app.delete('/category', authController.getUserId, categoryController.deleteCategory, (req: Request, res: Response): Response => {
   return res.sendStatus(200);
 })
 
 /**
  * Get all items
  */
-app.get('/item', itemController.getItems, (req: Request, res: Response): Response => {
+app.get('/item', authController.getUserId, itemController.getItems, (req: Request, res: Response): Response => {
   return res.sendStatus(200);
 });
 
 /**
  * Add an item
  */
-app.post('/item', itemController.addItem, (req: Request, res: Response): Response => {
+app.post('/item', authController.getUserId, itemController.addItem, (req: Request, res: Response): Response => {
   return res.sendStatus(200);
 });
 
 /**
  * Delete an item
  */
-app.delete('/item', itemController.deleteItem, (req: Request, res: Response): Response => {
+app.delete('/item', authController.getUserId, itemController.deleteItem, (req: Request, res: Response): Response => {
   return res.sendStatus(200);
 });
 
