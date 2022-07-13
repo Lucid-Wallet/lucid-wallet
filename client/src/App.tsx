@@ -11,6 +11,7 @@ import './assets/css/header.css';
 import './assets/css/pages/home.css';
 import './assets/css/pages/category.css';
 import './assets/css/pages/userProfile.css'
+import './assets/css/pages/item.css'
 
 import Login from './components/auth/Login';
 import SignUp from './components/auth/SignUp';
@@ -18,6 +19,7 @@ import SignUp from './components/auth/SignUp';
 import Categories from './components/pages/Categories';
 import Home from './components/pages/Home';
 import UserProfile from './components/pages/UserProfile';
+import Items from './components/pages/Items';
 
 
 const App = () => {
@@ -30,6 +32,7 @@ const App = () => {
         <Route path='/signup' element={<SignUp />} />
         <Route path='/category' element={<Categories />} />
         <Route path='/user' element={<UserProfile />} />
+        <Route path='/item' element={<Items />} />
       </Routes>
     </BrowserRouter>
   )

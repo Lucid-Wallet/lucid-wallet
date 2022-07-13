@@ -52,7 +52,7 @@
 }
 
 .addCategoryField:focus{
-  border: 1px solid #8523b2;
+  border: 1px solid rgba(0,136,5,0.8953956582633054);
 }
 
 .addCategoryButton {
@@ -64,7 +64,7 @@
   margin: 0.4em 0.4em 0.4em 0;
   padding: 0.4em;
 
-  border: 1px #9e5fbb solid;
+  border: 1px rgba(22,51,5,1) solid;
   border-radius: 0.4em;
   background-color: white;
 
@@ -74,10 +74,10 @@
 }
 
 .addCategoryButton:hover {
-  color: #9e5fbb;
+  color: rgba(22,51,5,1);
 }
 
 .addCategoryButton:active {
-  background: #8523b2;
+  background: rgba(4,29,1,1);
   color: white;
 }

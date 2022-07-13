@@ -15,7 +15,7 @@
 }
 
 .homeCategoryHeader {
-  background: linear-gradient(to right, #8523b2, #9e5fbb);
+  background: linear-gradient(321deg, rgba(4,29,1,1) 0%, rgba(22,51,5,1) 50%, rgba(0,136,5,0.8953956582633054) 100%);
   color: white;
   padding: 0.4em;
 }
@@ -37,6 +37,7 @@
 .homeCategoryItemsCx table th {
   font-weight: 700;
   font-size: 1.2em;
+  color: black;
 }
 
 .homeCategoryItemsCx table tr {
@@ -48,8 +49,9 @@
 .homeCategoryItemsCx table tr:hover {
   font-weight: 700;
   font-size: 0.8em;
-  color: #8523b2;
+  color: rgba(0,136,5,0.8953956582633054)
 }
+
 
 .homeCategoryTotal {
   font-weight: 700;
@@ -67,7 +69,7 @@
   padding: 0.4em;
 
   width: 10em;
-  border: 2px #9e5fbb solid;
+  border: 2px rgba(22,51,5,1) solid;
   border-radius: 0.4em;
   background-color: white;
   
@@ -75,10 +77,10 @@
 }
 
 .homeCategoriesBtn:hover {
-  color: #9e5fbb;
+  color: rgba(22,51,5,1);
 }
 
 .homeCategoriesBtn:active {
-  background: #8523b2;
+  background: rgba(4,29,1,1);
   color: white;
 }

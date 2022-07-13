@@ -73,10 +73,23 @@ export const categoryController:CategoryController = {
   deleteCategory: async (req: Request, res: Response, next: NextFunction):Promise<void> => {
     try {
       const uid: Number | undefined = res.locals.user_id;
-      const values:String[] = [ uid, req.body.category_id];
+
+      const categoryValues:String[] = [ uid, req.body.category];
+      const getCategoryIDquery = 'SELECT category_id FROM categories WHERE user_id=$1 AND category=$2'
+      const dbRes = await db.query(getCategoryIDquery, categoryValues, null);
+      
+      const category_id = dbRes.rows[0].category_id;
+      
+      const values:String[] = [ uid, category_id];
+
+      const deleteItemsQuery = 'DELETE FROM items WHERE user_id = $1 AND category_id = $2'
       const query:String = 'DELETE FROM categories WHERE user_id = $1 AND category_id = $2';
 
-      const results = db.query(query, values, null)
+      // delete items associated with category we are deleting
+      await db.query(deleteItemsQuery, values, null);
+      // delete the category
+      await db.query(query, values, null)
+      
       return next();
     }
     catch(err){

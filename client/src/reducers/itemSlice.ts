@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
-import { add } from "lodash";
+import Category from "../components/pagesComponents/Category";
 import { RootState } from "../store";
-import { CategoryType, HomeCategoryType } from "../types";
+import { CategoryType } from "../types";
 
 export const getCategories = createAsyncThunk(
   "item/categories",
@@ -19,19 +19,39 @@ export const addCategory = createAsyncThunk(
     const postBody = {
       category: newCategory
     }
-    const res = await fetch('http://localhost:8080/category', {
+    await fetch('http://localhost:8080/category', {
       method: 'POST',
       credentials: 'include',
       headers: {
         'Content-Type': 'Application/JSON',
       },
       body: JSON.stringify(postBody)
-    })
+    });
     const addedCategory = {
       category_id: 0,
       category: newCategory,
     }
     return (addedCategory);
+  }
+);
+
+export const deleteCategory = createAsyncThunk(
+  "item/deleteCategory",
+  async (category: string) => {
+    const deleteBody = {
+      category: category
+    }
+    
+    await fetch('http://localhost:8080/category', {
+      method: 'DELETE',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'Application/JSON',
+      },
+      body: JSON.stringify(deleteBody)
+    })
+    
+    return (category);
   }
 );
 
@@ -66,11 +86,7 @@ export const itemSlice = createSlice({
 
   name: 'item',
   initialState: initialState,
-  reducers: {
-    removeCategory: (state, action) => {
-      return state;
-    }
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getCategories.fulfilled, (state, action) => {
       state.categories = action.payload;
@@ -82,15 +98,24 @@ export const itemSlice = createSlice({
 
     builder.addCase(addCategory.fulfilled, (state, action) => {
       state.categories.push(action.payload);
-      console.log(current(state.categories));
       return state;
     })
+
+    builder.addCase(deleteCategory.fulfilled, (state, action) => {
+      const newCategory:CategoryType[] = [];
+      state.categories.map(category => {
+        if (action.payload !== category.category) {
+          newCategory.push({
+            category_id: category.category_id,
+            category: category.category,
+          })
+        } 
+      })
+      return {...state, categories: newCategory};
+    })
+
   }
 });
-
-export const {
-  removeCategory,
-} = itemSlice.actions;
 
 export const selectCategories = (state:RootState) => state.item.categories;
 export const selectItems = (state:RootState) => state.item.items;

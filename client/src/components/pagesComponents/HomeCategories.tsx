@@ -25,7 +25,7 @@ const HomeCategories = () => {
     <div className='homeCategoriesCx'>
       <div className='homeCategoriesBtnCx'>
         <Link to='/category'><button className='homeCategoriesBtn'>Add Category</button></Link>
-        <button className='homeCategoriesBtn'>Add Item</button>
+        <Link to='/item'><button className='homeCategoriesBtn'>Add Item</button></Link>
       </div>
       { homeCategoriesArr }
     </div>

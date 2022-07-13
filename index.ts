@@ -59,7 +59,7 @@ app.get('/signOut', authController.signOut, (req: Request, res: Response):Respon
 /**
  * Get user displayname
  */
- app.get('/profile', authController.getUserId, (req: Request, res: Response):Response => {
+ app.get('/profile', authController.getUserId,authController.getDisplayname, (req: Request, res: Response):Response => {
   return res.sendStatus(200).json(res.locals.display_name);
 });
 
@@ -165,7 +165,7 @@ app.delete('/item', authController.getUserId, itemController.deleteItem, (req: R
     const secret:String|undefined = process.env.JWT_TOKEN_SECRET;
     const token:String = jwt.sign(gitHubUser, secret as string);
 
-    res.cookie("github-jwt", token, {
+    res.cookie("githubjwt", token, {
       httpOnly: true,
       domain: "localhost"
     })
