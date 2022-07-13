@@ -1,7 +1,6 @@
 "use strict";
 
 import { Request, Response, NextFunction } from "express";
-
 import { ItemController } from '../types';
 import { QueryResult } from 'pg';
 

@@ -35,7 +35,7 @@ export const authController:AuthController = {
         res.locals.user = { display_name: display_name, email: email};
 
         // On successful login assign valid session to user
-        jwt.sign(user, process.env.JWT_TOKEN_SECRET);
+        // jwt.sign(user, process.env.JWT_TOKEN_SECRET);
 
 
         
