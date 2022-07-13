@@ -92,7 +92,7 @@ app.delete('/category', authController.getUserId, categoryController.deleteCateg
  * Get all items
  */
 app.get('/item', authController.getUserId, itemController.getItems, (req: Request, res: Response): Response => {
-  return res.sendStatus(200);
+  return res.json(res.locals.items);
 });
 
 /**

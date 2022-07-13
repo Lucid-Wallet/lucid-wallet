@@ -15,7 +15,7 @@ import './assets/css/pages/userProfile.css'
 import Login from './components/auth/Login';
 import SignUp from './components/auth/SignUp';
 
-import Category from './components/pages/Category';
+import Categories from './components/pages/Categories';
 import Home from './components/pages/Home';
 import UserProfile from './components/pages/UserProfile';
 
@@ -28,7 +28,7 @@ const App = () => {
         <Route path='/' element={<Login />} />
         <Route path='/home' element={<Home />} />
         <Route path='/signup' element={<SignUp />} />
-        <Route path='/category' element={<Category />} />
+        <Route path='/category' element={<Categories />} />
         <Route path='/user' element={<UserProfile />} />
       </Routes>
     </BrowserRouter>

@@ -8,9 +8,6 @@ const SignUp = () => {
   const [ passOrEmailErr, setPassOrEmailErr ] = useState('');
 
   const onSignUpButtonClick = () => {
-
-    const signUpFailText = document.querySelector('signUpFailText') as HTMLDivElement;
-
     const emailField = document.querySelector('#emailSignUpField') as HTMLInputElement;
     const displayNameField = document.querySelector('#displayNameSignUpField') as HTMLInputElement;
     const passwordField = document.querySelector('#passwordSignUpField') as HTMLInputElement;
@@ -41,7 +38,7 @@ const SignUp = () => {
       })
       .then( res => res.json())
       .then( data => {
-        if (data.success) navigate('/home')
+        if (data.success) navigate('/')
         else {
           setPassOrEmailErr('Email already exist.');
         }
